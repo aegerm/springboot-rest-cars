@@ -23,11 +23,11 @@ public class CarControllerTest {
     private TestRestTemplate restTemplate;
 
     private ResponseEntity<CarDTO> findCar(String url) {
-        return this.restTemplate.getForEntity(url, CarDTO.class);
+        return this.restTemplate.withBasicAuth("user", "user").getForEntity(url, CarDTO.class);
     }
 
     private ResponseEntity<List<CarDTO>> findAll(String url) {
-        return this.restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<List<CarDTO>>() {});
+        return this.restTemplate.withBasicAuth("user", "user").exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<List<CarDTO>>() {});
     }
 
     @Test
@@ -36,7 +36,7 @@ public class CarControllerTest {
         car.setName("Carro 1");
         car.setType("Tipo 1");
 
-        ResponseEntity response = this.restTemplate.postForEntity("/api/v1/cars", car, null);
+        ResponseEntity response = this.restTemplate.withBasicAuth("admin", "admin").postForEntity("/api/v1/cars", car, null);
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
 
         String location = response.getHeaders().get("location").get(0);
@@ -46,7 +46,7 @@ public class CarControllerTest {
         assertEquals("Carro 1", dto.getName());
         assertEquals("Tipo 1", dto.getType());
 
-        this.restTemplate.delete(location);
+        this.restTemplate.withBasicAuth("user", "user").delete(location);
         assertEquals(HttpStatus.NOT_FOUND, findCar(location).getStatusCode());
     }
 
@@ -68,7 +68,7 @@ public class CarControllerTest {
 
     @Test
     public void getNotFoundTest() {
-        ResponseEntity<CarDTO> response = findCar("/api/v1/cars/11");
+        ResponseEntity<CarDTO> response = findCar("/api/v1/cars/1000");
         assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND);
     }
 }
