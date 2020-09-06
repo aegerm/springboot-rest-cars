@@ -5,6 +5,7 @@ import com.aegerm.springbootrestcars.domain.dto.CarDTO;
 import com.aegerm.springbootrestcars.service.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -36,6 +37,7 @@ public class CarController {
     }
 
     @PostMapping
+    @Secured({"ROLE_ADMIN"})
     public ResponseEntity<CarDTO> insert(@RequestBody Car car) {
         CarDTO dto = this.carService.insert(car);
         return ResponseEntity.created(getUri(dto.getId())).build();

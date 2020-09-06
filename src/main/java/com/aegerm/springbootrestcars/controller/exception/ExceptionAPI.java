@@ -11,6 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.io.Serializable;
+import java.nio.file.AccessDeniedException;
 
 @RestControllerAdvice
 public class ExceptionAPI extends ResponseEntityExceptionHandler {
@@ -23,6 +24,11 @@ public class ExceptionAPI extends ResponseEntityExceptionHandler {
     @ExceptionHandler({IllegalArgumentException.class})
     public ResponseEntity errorBadRequest(Exception exception) {
         return ResponseEntity.badRequest().build();
+    }
+
+    @ExceptionHandler({AccessDeniedException.class})
+    public ResponseEntity accessDenied() {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ExceptionError("Acesso negado!"));
     }
 
     @Override
