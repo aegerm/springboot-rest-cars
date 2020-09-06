@@ -4,8 +4,10 @@ import com.aegerm.springbootrestcars.domain.Car;
 import com.aegerm.springbootrestcars.domain.dto.CarDTO;
 import com.aegerm.springbootrestcars.repository.CarRepository;
 import com.aegerm.springbootrestcars.service.CarService;
+import com.aegerm.springbootrestcars.service.exception.ObjectNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,9 +26,9 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Optional<CarDTO> findById(Long id) {
+    public CarDTO findById(Long id) {
         Optional<Car> car = this.repository.findById(id);
-        return car.map(CarDTO::create);
+        return car.map(CarDTO::create).orElseThrow(() -> new ObjectNotFoundException("Carro não encontrado!"));
     }
 
     @Override
@@ -37,6 +39,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public CarDTO insert(Car car) {
+        Assert.isNull(car.getId(), "Não foi possível inserir o registro!");
         return CarDTO.create(this.repository.save(car));
     }
 
@@ -53,9 +56,6 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public void delete(Long id) {
-        this.findById(id).map(car -> {
-            this.repository.deleteById(id);
-            return car;
-        });
+        this.repository.deleteById(id);
     }
 }

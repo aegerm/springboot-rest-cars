@@ -2,12 +2,12 @@ package com.aegerm.springbootrestcars.service;
 
 import com.aegerm.springbootrestcars.domain.Car;
 import com.aegerm.springbootrestcars.domain.dto.CarDTO;
+import com.aegerm.springbootrestcars.service.exception.ObjectNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,11 +29,18 @@ public class CarServiceTest {
         Long id = dto.getId();
         assertNotNull(id);
 
-        Optional<CarDTO> optional = this.carService.findById(id);
-        assertTrue(optional.isPresent());
+        dto = this.carService.findById(id);
+        assertNotNull(dto);
+
+        assertEquals(car.getName(), dto.getName());
+        assertEquals(car.getType(), dto.getType());
 
         this.carService.delete(id);
-        assertFalse(this.carService.findById(id).isPresent());
+
+        try {
+            assertNull(this.carService.findById(id));
+            fail("O carro não foi excluído!");
+        } catch (ObjectNotFoundException exception) {}
     }
 
     @Test
@@ -45,9 +52,9 @@ public class CarServiceTest {
 
     @Test
     public void findByIdTest() {
-        Optional<CarDTO> dto = this.carService.findById(5L);
-        assertNotNull(dto.get());
-        assertEquals("Carro 5", dto.get().getName());
+        CarDTO dto = this.carService.findById(5L);
+        assertNotNull(dto);
+        assertEquals("Carro 5", dto.getName());
     }
 
     @Test
@@ -62,18 +69,17 @@ public class CarServiceTest {
         updated.setName("Carro 2 - UPDATE");
 
         this.carService.update(2L, updated);
-        assertEquals(updated.getName(), this.carService.findById(2L).get().getName());
+        assertEquals(updated.getName(), this.carService.findById(2L).getName());
     }
 
     @Test
     public void deleteCarTest() {
-        Optional<CarDTO> dto = this.carService.findById(10L);
+        CarDTO dto = this.carService.findById(10L);
         assertNotNull(dto);
 
-        Long id = dto.get().getId();
+        Long id = dto.getId();
         assertNotNull(id);
 
         this.carService.delete(id);
-        assertFalse(this.carService.findById(id).isPresent());
     }
 }

@@ -10,7 +10,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/cars")
@@ -25,9 +24,9 @@ public class CarController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<CarDTO>> findById(@PathVariable Long id) {
-        Optional<CarDTO> car = this.carService.findById(id);
-        return car.map(_car -> ResponseEntity.ok(car)).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<CarDTO> findById(@PathVariable Long id) {
+        CarDTO car = this.carService.findById(id);
+        return ResponseEntity.ok(car);
     }
 
     @GetMapping("/name/{name}")
@@ -39,7 +38,7 @@ public class CarController {
     @PostMapping
     public ResponseEntity<CarDTO> insert(@RequestBody Car car) {
         CarDTO dto = this.carService.insert(car);
-        return dto != null ? ResponseEntity.created(getUri(dto.getId())).build() : ResponseEntity.badRequest().build();
+        return ResponseEntity.created(getUri(dto.getId())).build();
     }
 
     @PutMapping("/{id}")
