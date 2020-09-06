@@ -1,0 +1,10 @@
+INSERT INTO tb_cars (name, type) VALUES ('Carro 1', 'Tipo 1');
+INSERT INTO tb_cars (name, type) VALUES ('Carro 2', 'Tipo 2');
+INSERT INTO tb_cars (name, type) VALUES ('Carro 3', 'Tipo 3');
+INSERT INTO tb_cars (name, type) VALUES ('Carro 4', 'Tipo 4');
+INSERT INTO tb_cars (name, type) VALUES ('Carro 5', 'Tipo 5');
+INSERT INTO tb_cars (name, type) VALUES ('Carro 6', 'Tipo 6');
+INSERT INTO tb_cars (name, type) VALUES ('Carro 7', 'Tipo 7');
+INSERT INTO tb_cars (name, type) VALUES ('Carro 8', 'Tipo 8');
+INSERT INTO tb_cars (name, type) VALUES ('Carro 9', 'Tipo 9');
+INSERT INTO tb_cars (name, type) VALUES ('Carro 10', 'Tipo 10');
