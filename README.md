@@ -28,3 +28,4 @@
  - MariaDB: https://mariadb.org/
  - HeidiSQL: https://www.heidisql.com/
  - Postman: https://www.postman.com/
+ - Windows 10: https://www.microsoft.com/pt-br/windows/
