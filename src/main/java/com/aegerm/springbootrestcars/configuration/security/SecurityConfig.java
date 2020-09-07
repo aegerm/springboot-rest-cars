@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
             .antMatchers(HttpMethod.POST, "/api/v1/login").permitAll()
             .antMatchers(HttpMethod.POST, "/api/v1/users/register").permitAll()
-            .antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**").permitAll()
+            .antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**").permitAll()
             .anyRequest().authenticated();
 
         http.addFilter(new JwtAuthenticationFilter(manager))
