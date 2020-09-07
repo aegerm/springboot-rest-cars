@@ -1,4 +1,6 @@
 ## Iniciando
+- Utilizado Suite Springboot
+- Utilizado Spring Data (JPA)
 - Desenvolvido com Java 11
 - Utilizar banco de dados MariaDB, versão 10.5 (Schema é criado automaticamente ao executar a aplicação)
 - Coverage 85%
