@@ -7,6 +7,7 @@ Para cadastrar um veículo o usuário deve possuir a role de admin e informar o 
 - Utilizado Suite Springboot
 - Utilizado Spring Data (JPA)
 - Desenvolvido com Java 11
+- Utilizado Maven versão 3.6.3
 - Utilizar banco de dados MariaDB, versão 10.5 (Schema é criado automaticamente ao executar a aplicação)
 - Coverage 85%
 - Utilizado banco de dados H2 para testes unitários e de integração
@@ -27,6 +28,7 @@ Para cadastrar um veículo o usuário deve possuir a role de admin e informar o 
  - http://modelmapper.org/getting-started/
  - https://www.jsonwebtoken.io/
  - https://junit.org/junit5/docs/current/user-guide/
+ - https://maven.apache.org/
  
  ## Ferramentas Utilizadas no Desenvolvimento
  - Intellij: https://www.jetbrains.com/pt-br/idea/
