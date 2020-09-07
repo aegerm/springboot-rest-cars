@@ -11,6 +11,7 @@
  - Após efetuar login deve ser utilizado o Bearer Token para autenticar.
  
  ## Documentação dos Frameworks Utilizados
+ - https://adoptopenjdk.net/
  - https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/
  - https://docs.spring.io/spring-security/site/docs/current/reference/html5/
  - https://spring.io/projects/spring-data
