@@ -1,3 +1,8 @@
+## Objetivo da API
+O objetivo dessa API é manter o cadastro de carros e seu respectivo tipo. Podendo o mesmo ser deletado, atualizado e listado por meio de filtros.
+Para cadastrar um veículo o usuário deve possuir a role de admin e informar o nome e o seu tipo.
+- Ex: Nome: Audi A3 e Tipo: Esportivo.
+
 ## Iniciando
 - Utilizado Suite Springboot
 - Utilizado Spring Data (JPA)
