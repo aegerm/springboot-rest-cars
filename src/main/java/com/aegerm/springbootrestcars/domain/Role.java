@@ -2,9 +2,9 @@ package com.aegerm.springbootrestcars.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @Table(name = "tb_roles")
-public class Role implements Serializable {
+public class Role implements GrantedAuthority {
 
     private static final long serialVersionUID = 1L;
 
@@ -23,4 +23,9 @@ public class Role implements Serializable {
 
     @ManyToMany(mappedBy = "roles")
     private List<User> users = new ArrayList<>();
+
+    @Override
+    public String getAuthority() {
+        return name;
+    }
 }

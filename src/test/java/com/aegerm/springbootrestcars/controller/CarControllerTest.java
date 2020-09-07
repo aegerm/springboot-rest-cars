@@ -4,30 +4,25 @@ import com.aegerm.springbootrestcars.SpringbootRestCarsApplication;
 import com.aegerm.springbootrestcars.domain.Car;
 import com.aegerm.springbootrestcars.domain.dto.CarDTO;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(classes = SpringbootRestCarsApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class CarControllerTest {
-
-    @Autowired
-    private TestRestTemplate restTemplate;
+public class CarControllerTest extends AbstractApiTest {
 
     private ResponseEntity<CarDTO> findCar(String url) {
-        return this.restTemplate.withBasicAuth("user", "user").getForEntity(url, CarDTO.class);
+        return get(url, CarDTO.class);
     }
 
     private ResponseEntity<List<CarDTO>> findAll(String url) {
-        return this.restTemplate.withBasicAuth("user", "user").exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<List<CarDTO>>() {});
+        HttpHeaders headers = getHeaders();
+        return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<List<CarDTO>>() {});
     }
 
     @Test
@@ -36,7 +31,7 @@ public class CarControllerTest {
         car.setName("Carro 1");
         car.setType("Tipo 1");
 
-        ResponseEntity response = this.restTemplate.withBasicAuth("admin", "admin").postForEntity("/api/v1/cars", car, null);
+        ResponseEntity response = post("/api/v1/cars", car, null);
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
 
         String location = response.getHeaders().get("location").get(0);
@@ -46,7 +41,7 @@ public class CarControllerTest {
         assertEquals("Carro 1", dto.getName());
         assertEquals("Tipo 1", dto.getType());
 
-        this.restTemplate.withBasicAuth("user", "user").delete(location);
+        delete(location, null);
         assertEquals(HttpStatus.NOT_FOUND, findCar(location).getStatusCode());
     }
 

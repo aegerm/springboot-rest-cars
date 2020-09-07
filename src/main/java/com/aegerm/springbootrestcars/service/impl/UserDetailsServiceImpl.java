@@ -1,6 +1,5 @@
 package com.aegerm.springbootrestcars.service.impl;
 
-import com.aegerm.springbootrestcars.configuration.security.UserPrincipal;
 import com.aegerm.springbootrestcars.domain.User;
 import com.aegerm.springbootrestcars.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +22,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException(login);
         }
 
-        return new UserPrincipal(user.getId(), user.getLogin(), user.getPassword(), user.getRoles());
+        return user;
     }
 }
